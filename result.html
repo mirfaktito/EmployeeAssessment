@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Evaluation Result</title>
+  </head>
+  <body>
+    <h1>Evaluation Result</h1>
+    <p>Name : {{ employee_name }}</p>
+    <p>Position : {{ position }}</p>
+    <p>NIK : {{ employee_id }}</p>
+    ----
+    <h2>Nilai</h2>
+    <div style="display: flex; flex-direction: column; margin-left: 20px">
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px"
+          >1. Tanggung jawab peran</span
+        >: {{ responsibility }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px">2. Ketepatan waktu</span
+        >: {{ timeliness }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px"
+          >3. Kualitas pekerjaan</span
+        >: {{ quality }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px">4. Kuantitas hasil</span
+        >: {{ quantity }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px"
+          >5. Presensi/kehadiran</span
+        >: {{ attendance }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px">6. Kerja sama tim</span
+        >: {{ teamwork }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px">7. Inisiatif</span>: {{
+        initiative }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px">8. Kepemimpinan</span>:
+        {{ leadership }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px">9. Perilaku</span>: {{
+        behavior }}
+      </div>
+      <div style="display: flex; margin-bottom: 5px">
+        <span style="width: 250px; padding-right: 10px">10. Karakter</span>: {{
+        character }}
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; flex-direction: column">
+      <span style="width: auto; padding-right: 10px"
+        >Total Score: {{ total_score }}</span
+      >
+      <span style="width: auto; padding-left: 84px">: {{ grade }}</span>
+    </div>
+    <a href="/">Back to Form</a>
+  </body>
+</html>

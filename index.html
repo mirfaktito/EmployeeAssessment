@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Evaluation Form</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      h1 {
+        color: #333;
+      }
+      form {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      label {
+        width: 200px;
+        margin-right: 10px;
+        font-weight: bold;
+      }
+      input {
+        width: 100px;
+        padding: 5px;
+        font-size: 14px;
+      }
+      button {
+        padding: 8px 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 150px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      .evaluation-list {
+        margin-top: 20px;
+      }
+      .evaluation-item {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9;
+      }
+      .evaluation-item button {
+        background-color: #dc3545;
+        margin-right: 5px;
+      }
+      .evaluation-item button:hover {
+        background-color: #c82333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Employee Evaluation Form</h1>
+    <form id="evaluationForm" action="/evaluate" method="post">
+      <div class="form-group">
+        <label for="employeeName">Nama Karyawan:</label>
+        <input type="text" id="employeeName" name="employeeName" required />
+      </div>
+      <div class="form-group">
+        <label for="position">Jabatan:</label>
+        <input type="text" id="position" name="position" required />
+      </div>
+      <div class="form-group">
+        <label for="employeeID">NIK:</label>
+        <input type="text" id="employeeID" name="employeeID" required />
+      </div>
+      <div class="form-group">
+        <label for="responsibility">1. Tanggung jawab peran:</label>
+        <input
+          type="number"
+          id="responsibility"
+          name="responsibility"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="timeliness">2. Ketepatan waktu:</label>
+        <input
+          type="number"
+          id="timeliness"
+          name="timeliness"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="quality">3. Kualitas pekerjaan:</label>
+        <input
+          type="number"
+          id="quality"
+          name="quality"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="quantity">4. Kuantitas hasil:</label>
+        <input
+          type="number"
+          id="quantity"
+          name="quantity"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="attendance">5. Presensi/kehadiran:</label>
+        <input
+          type="number"
+          id="attendance"
+          name="attendance"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="teamwork">6. Kerja sama tim:</label>
+        <input
+          type="number"
+          id="teamwork"
+          name="teamwork"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="initiative">7. Inisiatif:</label>
+        <input
+          type="number"
+          id="initiative"
+          name="initiative"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="leadership">8. Kepemimpinan:</label>
+        <input
+          type="number"
+          id="leadership"
+          name="leadership"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="behavior">9. Perilaku:</label>
+        <input
+          type="number"
+          id="behavior"
+          name="behavior"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="character">10. Karakter:</label>
+        <input
+          type="number"
+          id="character"
+          name="character"
+          min="1"
+          max="10"
+          required
+        />
+      </div>
+      <button id="submitButton" type="submit">Submit Evaluation</button>
+    </form>
+
+    <h2>View All Evaluations</h2>
+    <button id="toggleEvaluationsButton" onclick="toggleEvaluations()">
+      Show Evaluations
+    </button>
+    <div id="evaluations" class="evaluation-list"></div>
+
+    <script>
+      let evaluationsVisible = false;
+
+      function fetchEvaluations() {
+        fetch("/fetch_evaluations")
+          .then((response) => response.json())
+          .then((data) => {
+            let evaluationsDiv = document.getElementById("evaluations");
+            evaluationsDiv.innerHTML = ""; // Clear previous evaluations
+            data.forEach((evaluation) => {
+              evaluationsDiv.innerHTML += `
+                            <div class="evaluation-item">
+                                <p><strong>Name:</strong> ${evaluation.employee_name}</p>
+                                <p><strong>Position:</strong> ${evaluation.position}</p>
+                                <p><strong>NIK:</strong> ${evaluation.employee_id}</p>
+                                <p><strong>1. Tanggung jawab peran:</strong> ${evaluation.responsibility}</p>
+                                <p><strong>2. Ketepatan waktu:</strong> ${evaluation.timeliness}</p>
+                                <p><strong>3. Kualitas pekerjaan:</strong> ${evaluation.quality}</p>
+                                <p><strong>4. Kuantitas hasil:</strong> ${evaluation.quantity}</p>
+                                <p><strong>5. Presensi/kehadiran:</strong> ${evaluation.attendance}</p>
+                                <p><strong>6. Kerja sama tim:</strong> ${evaluation.teamwork}</p>
+                                <p><strong>7. Inisiatif:</strong> ${evaluation.initiative}</p>
+                                <p><strong>8. Kepemimpinan:</strong> ${evaluation.leadership}</p>
+                                <p><strong>9. Perilaku:</strong> ${evaluation.behavior}</p>
+                                <p><strong>10. Karakter:</strong> ${evaluation.character}</p>
+                                <p><strong>Total Nilai:</strong> ${evaluation.total_score}</p>
+                                <p><strong>Grade:</strong> ${evaluation.grade}</p>
+                                <button onclick="editEvaluation('${evaluation.employee_id}')">Edit</button>
+                                <button onclick="deleteEvaluation('${evaluation.employee_id}')">Delete</button>
+                            </div>
+                        `;
+            });
+          })
+          .catch((error) =>
+            console.error("Error fetching evaluations:", error)
+          );
+      }
+
+      function toggleEvaluations() {
+        let evaluationsDiv = document.getElementById("evaluations");
+        let button = document.getElementById("toggleEvaluationsButton");
+
+        if (evaluationsVisible) {
+          evaluationsDiv.style.display = "none";
+          button.innerText = "Show Evaluations";
+        } else {
+          evaluationsDiv.style.display = "block";
+          fetchEvaluations(); // Fetch evaluations when showing
+          button.innerText = "Hide Evaluations";
+        }
+
+        evaluationsVisible = !evaluationsVisible;
+      }
+
+      function editEvaluation(employee_id) {
+        fetch(`/fetch_evaluation?employee_id=${employee_id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Fetched data:", data);
+            document.getElementById("employeeName").value = data.employee_name;
+            document.getElementById("position").value = data.position;
+            document.getElementById("employeeID").value = data.employee_id;
+            document.getElementById("responsibility").value =
+              data.responsibility;
+            document.getElementById("timeliness").value = data.timeliness;
+            document.getElementById("quality").value = data.quality;
+            document.getElementById("quantity").value = data.quantity;
+            document.getElementById("attendance").value = data.attendance;
+            document.getElementById("teamwork").value = data.teamwork;
+            document.getElementById("initiative").value = data.initiative;
+            document.getElementById("leadership").value = data.leadership;
+            document.getElementById("behavior").value = data.behavior;
+            document.getElementById("character").value = data.character;
+            document.getElementById("total_score").value = data.total_score;
+            document.getElementById("grade").value = data.grade;
+
+            // Update the form action to /update_evaluation and change button text
+            document.getElementById("evaluationForm").action =
+              "/update_evaluation";
+            document.getElementById("submitButton").innerText =
+              "Update Evaluation";
+          })
+          .catch((error) => console.error("Error fetching evaluation:", error));
+      }
+
+      function deleteEvaluation(employee_id) {
+        if (confirm("Are you sure you want to delete this evaluation?")) {
+          fetch(`/delete_evaluation?employee_id=${employee_id}`, {
+            method: "DELETE",
+          })
+            .then((response) => {
+              if (response.ok) {
+                alert("Evaluation deleted successfully.");
+                fetchEvaluations();
+              } else {
+                alert("Failed to delete evaluation.");
+              }
+            })
+            .catch((error) =>
+              console.error("Error deleting evaluation:", error)
+            );
+        }
+      }
+    </script>
+  </body>
+</html>
